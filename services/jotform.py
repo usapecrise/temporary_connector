@@ -214,3 +214,32 @@ def get_registrations(form_id):
             )
 
     return participants
+
+def update_submission(submission_id, fields):
+    """
+    Update fields in an existing Jotform submission.
+    """
+
+    url = (
+        f"{BASE_URL}/submission/"
+        f"{submission_id}"
+    )
+
+    data = {}
+
+    for field_name, value in fields.items():
+        data[
+            f"submission[{field_name}]"
+        ] = value
+
+    response = requests.post(
+        url,
+        headers=HEADERS,
+        data=data,
+        timeout=30
+    )
+
+    response.raise_for_status()
+
+    return response.json()
+
