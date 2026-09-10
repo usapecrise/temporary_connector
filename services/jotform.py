@@ -166,7 +166,7 @@ def get_registrations(form_id):
             # -------------------------
 
             elif field == (
-                "organizationaffiliation"
+                "organization"
             ):
 
                 person[
