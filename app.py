@@ -7,7 +7,10 @@ from flask import (
     jsonify,
 )
 
-from services.jotform import get_registrations
+from services.jotform import (
+    get_registrations,
+    update_submission,
+)
 
 load_dotenv()
 
@@ -206,22 +209,132 @@ def api_registrant():
 @app.route("/webhook/signin", methods=["POST"])
 def webhook_signin():
 
-    # Protect the webhook with the same connector token
-    token = request.args.get("token", "").strip()
+    token = request.args.get(
+        "token",
+        ""
+    ).strip()
 
     if token != CONNECTOR_TOKEN:
         return jsonify({
             "error": "Unauthorized"
         }), 401
 
-    print("===== JOTFORM SIGN-IN WEBHOOK =====")
-    print("FORM DATA:", request.form.to_dict())
-    print("RAW DATA:", request.get_data(as_text=True))
-    print("===================================")
+    try:
+        import json
 
-    return jsonify({
-        "status": "received"
-    }), 200
+        # Jotform sends the submitted fields inside rawRequest
+        raw_request = request.form.get(
+            "rawRequest",
+            "{}"
+        )
+
+        data = json.loads(raw_request)
+
+        # This is the NEW sign-in submission
+        signin_submission_id = request.form.get(
+            "submissionID",
+            ""
+        ).strip()
+
+        # q29 is the Remote Data Dropdown.
+        # Its saved value is the ORIGINAL registration submission ID.
+        registration_id = str(
+            data.get(
+                "q29_typeA",
+                ""
+            )
+        ).strip()
+
+        # If this person did not select an existing registration,
+        # there is nothing for the connector to fill.
+        if not registration_id:
+            return jsonify({
+                "status": "no registration selected"
+            }), 200
+
+        # Registration form for this workshop
+        registration_form_id = "262514782185967"
+
+        registrations = get_registrations(
+            registration_form_id
+        )
+
+        registrant = None
+
+        for person in registrations:
+            if str(
+                person.get(
+                    "submission_id",
+                    ""
+                )
+            ) == registration_id:
+                registrant = person
+                break
+
+        if not registrant:
+            return jsonify({
+                "error": "Registrant not found"
+            }), 404
+
+        # Populate the blank fields in the SIGN-IN submission
+        fields = {
+            "2": {
+                "first": registrant.get(
+                    "first_name",
+                    ""
+                ),
+                "last": registrant.get(
+                    "last_name",
+                    ""
+                ),
+            },
+            "23": registrant.get(
+                "sex",
+                ""
+            ),
+            "14": registrant.get(
+                "economy",
+                ""
+            ),
+            "15": registrant.get(
+                "email",
+                ""
+            ),
+            "19": registrant.get(
+                "organization",
+                ""
+            ),
+        }
+
+        update_submission(
+            signin_submission_id,
+            fields
+        )
+
+        print(
+            "Updated sign-in submission:",
+            signin_submission_id
+        )
+
+        print(
+            "Using registration:",
+            registration_id
+        )
+
+        return jsonify({
+            "status": "updated"
+        }), 200
+
+    except Exception as e:
+
+        print(
+            "Webhook error:",
+            repr(e)
+        )
+
+        return jsonify({
+            "error": "Webhook processing failed"
+        }), 500
 
 @app.route("/health")
 def health():
