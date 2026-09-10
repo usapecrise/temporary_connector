@@ -154,6 +154,54 @@ def api_registrants():
         return jsonify({
             "error": "Unable to load registrants"
         }), 500
+@app.route("/api/registrant")
+def api_registrant():
+
+    submission_id = request.args.get(
+        "id",
+        ""
+    ).strip()
+
+    form_id = request.args.get(
+        "form_id",
+        ""
+    ).strip()
+
+    if not submission_id or not form_id:
+        return jsonify({
+            "error": "Missing id or form_id"
+        }), 400
+
+    auth_header = request.headers.get(
+        "Authorization",
+        ""
+    ).strip()
+
+    if auth_header.lower().startswith("bearer "):
+        auth_header = auth_header[7:].strip()
+
+    if auth_header != CONNECTOR_TOKEN:
+        return jsonify({
+            "error": "Unauthorized"
+        }), 401
+
+    try:
+        registrations = get_registrations(form_id)
+
+        for person in registrations:
+            if str(person.get("submission_id", "")) == submission_id:
+                return jsonify(person)
+
+        return jsonify({
+            "error": "Registrant not found"
+        }), 404
+
+    except Exception as e:
+        print("Error loading registrant:", repr(e))
+
+        return jsonify({
+            "error": "Unable to load registrant"
+        }), 500
 
 
 @app.route("/health")
