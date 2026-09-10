@@ -203,6 +203,25 @@ def api_registrant():
             "error": "Unable to load registrant"
         }), 500
 
+@app.route("/webhook/signin", methods=["POST"])
+def webhook_signin():
+
+    # Protect the webhook with the same connector token
+    token = request.args.get("token", "").strip()
+
+    if token != CONNECTOR_TOKEN:
+        return jsonify({
+            "error": "Unauthorized"
+        }), 401
+
+    print("===== JOTFORM SIGN-IN WEBHOOK =====")
+    print("FORM DATA:", request.form.to_dict())
+    print("RAW DATA:", request.get_data(as_text=True))
+    print("===================================")
+
+    return jsonify({
+        "status": "received"
+    }), 200
 
 @app.route("/health")
 def health():
