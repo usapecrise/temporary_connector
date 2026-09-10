@@ -1,0 +1,547 @@
+/* ==========================================
+   APEC-RISE Check-In
+========================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+
+    font-family:
+        "Segoe UI",
+        Tahoma,
+        Geneva,
+        Verdana,
+        sans-serif;
+
+    background:#F4F7FA;
+
+    color:#1F2937;
+
+    min-height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:30px;
+
+}
+
+
+/* ==========================================
+   Layout
+========================================== */
+
+.container{
+
+    width:100%;
+
+    max-width:700px;
+
+}
+
+.logo{
+
+    text-align:center;
+
+    margin-bottom:35px;
+
+}
+
+.logo h1{
+
+    color:#005DAA;
+
+    font-size:42px;
+
+    font-weight:700;
+
+}
+
+.logo p{
+
+    margin-top:8px;
+
+    color:#6B7280;
+
+    font-size:20px;
+
+}
+
+
+/* ==========================================
+   Main Card
+========================================== */
+
+.card{
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:40px;
+
+    box-shadow:
+
+        0 8px 30px rgba(0,0,0,.08);
+
+}
+
+.card h2{
+
+    text-align:center;
+
+    margin-bottom:8px;
+
+    font-size:28px;
+
+}
+
+.subtitle{
+
+    text-align:center;
+
+    color:#6B7280;
+
+    margin-bottom:35px;
+
+}
+
+
+/* ==========================================
+   Event Cards
+========================================== */
+
+.event-card{
+
+    display:block;
+
+    margin-bottom:18px;
+
+    cursor:pointer;
+
+}
+
+.event-card input{
+
+    display:none;
+
+}
+
+.event-info{
+
+    border:2px solid #D7DEE8;
+
+    border-radius:16px;
+
+    padding:22px;
+
+    transition:.25s;
+
+}
+
+.event-name{
+
+    font-size:22px;
+
+    font-weight:600;
+
+}
+
+.event-type{
+
+    color:#6B7280;
+
+    margin-top:8px;
+
+}
+
+.event-card:hover .event-info{
+
+    border-color:#005DAA;
+
+    transform:translateY(-2px);
+
+}
+
+.event-card input:checked + .event-info{
+
+    border-color:#005DAA;
+
+    background:#EEF6FD;
+
+}
+
+
+/* ==========================================
+   Buttons
+========================================== */
+
+.primary-btn{
+
+    width:100%;
+
+    border:none;
+
+    margin-top:25px;
+
+    padding:18px;
+
+    border-radius:14px;
+
+    background:#005DAA;
+
+    color:white;
+
+    font-size:20px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+}
+
+.primary-btn:hover{
+
+    background:#004B89;
+
+}
+
+
+/* ==========================================
+   Responsive
+========================================== */
+
+@media(max-width:768px){
+
+    body{
+
+        padding:15px;
+
+    }
+
+    .card{
+
+        padding:25px;
+
+    }
+
+    .logo h1{
+
+        font-size:34px;
+
+    }
+
+    .event-name{
+
+        font-size:20px;
+
+    }
+
+}
+
+/* ==========================================
+   Search Screen
+========================================== */
+
+.search-box input{
+
+    width:100%;
+
+    padding:18px;
+
+    font-size:20px;
+
+    border:2px solid #D7DEE8;
+
+    border-radius:14px;
+
+    margin-bottom:20px;
+
+}
+
+#results{
+
+    min-height:120px;
+
+}
+
+.divider{
+
+    margin:30px 0;
+
+    border:none;
+
+    border-top:1px solid #E5E7EB;
+
+}
+
+.secondary-btn{
+
+    width:100%;
+
+    padding:16px;
+
+    border:2px solid #005DAA;
+
+    background:white;
+
+    color:#005DAA;
+
+    border-radius:14px;
+
+    font-size:20px;
+    font-weight:600;
+
+    cursor:pointer;
+
+}
+
+.secondary-btn:hover{
+
+    background:#EEF6FD;
+
+}
+
+.hidden{
+
+    display:none;
+
+}
+
+#registrationForm{
+
+    margin-top:25px;
+
+}
+
+#registrationForm h3{
+
+    margin-bottom:20px;
+
+    text-align:center;
+
+}
+
+#registrationForm input,
+#registrationForm select{
+
+    width:100%;
+
+    padding:16px;
+
+    margin-bottom:15px;
+
+    border:2px solid #D7DEE8;
+
+    border-radius:12px;
+
+    font-size:18px;
+
+}
+
+/* ==========================================
+   Search Results
+========================================== */
+
+.result {
+
+    padding: 16px;
+
+    border: 2px solid #D7DEE8;
+
+    border-radius: 12px;
+
+    margin-bottom: 12px;
+
+    cursor: pointer;
+
+    transition: .2s;
+
+}
+
+.result:hover {
+
+    border-color: #005DAA;
+
+    background: #EEF6FD;
+
+}
+
+.result strong {
+
+    display: block;
+
+    font-size: 18px;
+
+    margin-bottom: 4px;
+
+}
+
+.result .org {
+
+    color: #6B7280;
+
+    font-size: 15px;
+
+}
+
+/* ==========================================
+   Search Results
+========================================== */
+
+.result{
+
+    padding:18px;
+
+    border:2px solid #D7DEE8;
+
+    border-radius:14px;
+
+    margin-bottom:12px;
+
+    cursor:pointer;
+
+    transition:.2s;
+
+}
+
+.result:hover{
+
+    border-color:#005DAA;
+
+    background:#EEF6FD;
+
+}
+
+.result strong{
+
+    display:block;
+
+    font-size:20px;
+
+    margin-bottom:6px;
+
+}
+
+.result .org{
+
+    color:#6B7280;
+
+    font-size:16px;
+
+}
+
+/* ==========================================
+   Confirmation Card
+========================================== */
+
+#confirmationCard{
+
+    margin-top:18px;
+
+    padding:22px;
+
+    border:2px solid #005DAA;
+
+    border-radius:16px;
+
+    background:#EEF6FD;
+
+}
+
+.confirm-name{
+
+    font-size:28px;
+
+    font-weight:700;
+
+    margin:20px 0 8px;
+
+}
+
+.confirm-org{
+
+    color:#6B7280;
+
+    font-size:18px;
+
+    margin-bottom:25px;
+
+}
+
+.confirm-buttons{
+
+    display:flex;
+
+    gap:15px;
+
+}
+
+.confirm-buttons button{
+
+    flex:1;
+
+}
+
+.confirm-buttons .primary-btn,
+.confirm-buttons .secondary-btn{
+
+    flex:1;
+    margin-top:0;
+
+}
+
+#signatureScreen {
+    margin-top: 20px;
+}
+
+#signaturePad {
+    width: 100%;
+    height: 220px;
+    background: #ffffff;
+    border: 2px solid #d9d9d9;
+    border-radius: 10px;
+    box-sizing: border-box;
+    touch-action: none;
+}
+
+#signaturePad:hover {
+    border-color: #002656;
+}
+
+#signaturePad:focus {
+    outline: none;
+}
+
+#clearSignatureButton {
+    background: #f3f4f6;
+}
+
+#submitButton {
+    min-width: 140px;
+}
+
+.success-screen{
+    text-align:center;
+    padding:40px 20px;
+}
+
+.success-icon{
+    font-size:72px;
+    color:#2e7d32;
+    margin-bottom:20px;
+}
+
+.small{
+    color:#777;
+    margin-top:20px;
+}

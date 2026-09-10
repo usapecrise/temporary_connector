@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>US APEC-RISE Check-In</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="logo">
+        <h1>US APEC-RISE</h1>
+        <p>Event Check-In</p>
+    </div>
+
+    <div class="card">
+
+        <h2>Find Your Registration</h2>
+
+        <p class="subtitle">
+            Begin typing your name below.
+        </p>
+
+        <div class="search-box">
+
+            <input
+                id="searchBox"
+                type="text"
+                placeholder="Search by name..."
+                autocomplete="off">
+
+        </div>
+
+        <div id="results"></div>
+
+        <div id="confirmationCard" class="hidden">
+
+            <h3>✓ Registration Found</h3>
+
+            <div id="confirmName" class="confirm-name"></div>
+
+            <div id="confirmOrganization" class="confirm-org"></div>
+
+            <div class="confirm-buttons">
+
+                <button
+                    id="backButton"
+                    class="secondary-btn">
+
+                    Not me
+
+                </button>
+
+                <button
+                    id="continueButton"
+                    class="primary-btn">
+
+                    Continue
+
+                </button>
+
+            </div>
+
+        </div>
+
+        <hr id="divider" class="divider">
+
+        <div id="signatureScreen" class="hidden">
+
+            <h3>Sign to Complete Check-In</h3>
+
+            <div class="confirm-name" id="signatureName"></div>
+            <div class="confirm-org" id="signatureOrganization"></div>
+
+    <canvas
+        id="signaturePad"
+        width="600"
+        height="220">
+    </canvas>
+
+<div class="confirm-buttons">
+
+    <button
+        id="signatureBackButton"
+        class="secondary-btn">
+
+        Back
+
+    </button>
+
+    <button
+        id="clearSignatureButton"
+        class="secondary-btn">
+
+        Clear
+
+    </button>
+
+    <button
+        id="submitButton"
+        class="primary-btn">
+
+        Check In
+
+    </button>
+
+</div>
+
+</div>
+
+
+        <button
+            id="toggleRegistration"
+            class="secondary-btn">
+
+            Not registered yet?
+
+        </button>
+
+        <div
+            id="registrationForm"
+            class="hidden">
+
+            <h3>Complete Your Information</h3>
+
+            <input type="text" placeholder="First Name">
+            <input type="text" placeholder="Last Name">
+            <input type="email" placeholder="Email Address">
+            <input type="text" placeholder="Organization">
+
+            <select>
+                <option selected disabled>Economy</option>
+                <option>Australia</option>
+                <option>Canada</option>
+                <option>Chile</option>
+                <option>China</option>
+                <option>Hong Kong, China</option>
+                <option>Indonesia</option>
+                <option>Japan</option>
+                <option>Korea</option>
+                <option>Malaysia</option>
+                <option>Mexico</option>
+                <option>New Zealand</option>
+                <option>Papua New Guinea</option>
+                <option>Peru</option>
+                <option>Philippines</option>
+                <option>Singapore</option>
+                <option>Chinese Taipei</option>
+                <option>Thailand</option>
+                <option>United States</option>
+                <option>Viet Nam</option>
+            </select>
+
+            <select>
+                <option selected disabled>Sector</option>
+                <option>Government</option>
+                <option>Private Sector</option>
+                <option>Academia</option>
+                <option>Civil Society</option>
+                <option>International Organization</option>
+                <option>Other</option>
+            </select>
+
+            <button class="primary-btn">
+                Continue
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/signature_pad.umd.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/search.js') }}"></script>
+
+<div id="successScreen" class="hidden success-screen">
+
+    <div class="success-icon">✓</div>
+
+    <h2>Check-In Complete</h2>
+
+    <div id="successName" class="confirm-name"></div>
+
+    <p>Thank you for attending.</p>
+
+    <p class="small">Returning to search...</p>
+
+</div>
+
+</body>
+</html>

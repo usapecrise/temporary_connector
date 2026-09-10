@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>APEC-RISE Check-In</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="logo">
+
+        <h1>US APEC-RISE</h1>
+
+        <p>Event Check-In</p>
+
+    </div>
+
+    <div class="card">
+
+        <h2>Please Select Your Event</h2>
+
+        <p class="subtitle">
+            This screen is only visible to staff.
+        </p>
+
+        <form action="/start" method="post">
+
+            {% for event in events %}
+
+            <label class="event-card">
+
+                <input
+                    type="radio"
+                    name="event"
+                    value="{{ event.record_id }}"
+                    required>
+
+                <div class="event-info">
+
+                    <div class="event-name">
+                        {{ event.workshop }}
+                    </div>
+
+                    <div class="event-type">
+                        {{ event.activity_type }}
+                    </div>
+
+                </div>
+
+            </label>
+
+            {% endfor %}
+
+            <button
+                class="primary-btn"
+                type="submit">
+
+                Start Check-In
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

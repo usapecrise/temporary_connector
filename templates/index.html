@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Workshop Check-In</title>
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet" href="/static/css/style.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- ==========================================
+         SEARCH SCREEN
+    =========================================== -->
+
+    <section
+        id="searchScreen"
+        class="screen">
+
+        <h1>Workshop Check-In</h1>
+
+        <p class="prompt">
+            Find your registration
+        </p>
+
+        <p class="helper">
+            Start typing your name below.
+        </p>
+
+        <div class="search-container">
+
+            <i class="bi bi-search search-icon"></i>
+
+            <input
+                id="searchBox"
+                type="text"
+                placeholder="Search by name..."
+                autocomplete="off">
+
+        </div>
+
+        <div id="results"></div>
+
+        <div class="divider">
+            <span>OR</span>
+        </div>
+
+        <div class="register-section">
+
+            <p>Not registered yet?</p>
+
+            <button id="registerButton"
+                    class="secondary-button">
+                Register Now
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==========================================
+         PREVIEW SCREEN
+    =========================================== -->
+
+    <section id="previewScreen"
+             class="hidden">
+
+        <div class="success-icon">
+            ✓
+        </div>
+
+        <h2>Registration Found</h2>
+
+        <h3 id="previewName"></h3>
+
+        <p class="preview-org"
+           id="previewOrganization"></p>
+
+        <p class="preview-economy"
+           id="previewEconomy"></p>
+
+        <p class="helper">
+            Please confirm this is your registration.
+        </p>
+
+        <div class="button-group">
+
+            <button id="confirmButton"
+                    class="primary-button">
+                Confirm &amp; Sign
+            </button>
+
+            <button id="changeButton"
+                    class="text-button">
+                Start Over
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==========================================
+         SIGNATURE SCREEN
+    =========================================== -->
+
+    <section id="signatureScreen"
+             class="hidden">
+
+        <h2 id="signatureName"></h2>
+
+        <p class="helper">
+            Please sign below to complete today's attendance.
+        </p>
+
+        <canvas id="signaturePad"></canvas>
+
+        <button id="clearSignatureButton"
+                class="secondary-button">
+            Clear Signature
+        </button>
+
+        <div class="button-group">
+
+            <button id="submitAttendance"
+                    class="primary-button">
+                Submit Attendance
+            </button>
+
+            <button id="signatureResetButton"
+                    class="text-button">
+                Back
+            </button>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ==========================================
+         LOADING SCREEN
+    =========================================== -->
+
+    <section id="loadingScreen"
+             class="hidden">
+
+        <div class="spinner"></div>
+
+        <h2>Checking You In...</h2>
+
+        <p>
+            Please wait just a moment.
+        </p>
+
+    </section>
+
+
+
+    <!-- ==========================================
+         SUCCESS SCREEN
+    =========================================== -->
+
+    <section id="successScreen"
+             class="hidden">
+
+        <div class="success-icon">
+            ✓
+        </div>
+
+        <h2>You're Checked In!</h2>
+
+        <p>
+            Thank you for attending today's workshop.
+        </p>
+
+        <p>
+            Enjoy the session.
+        </p>
+
+    </section>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/signature_pad@5.0.3/dist/signature_pad.umd.min.js"></script>
+
+<script src="/static/js/app.js"></script>
+
+<script src="{{ url_for('static', filename='js/signature_pad.umd.min.js') }}"></script>
+
+<script>
+    console.log("After loading:", window.SignaturePad);
+</script>
+
+<script src="{{ url_for('static', filename='js/search.js') }}"></script>
+
+</body>
+
+</html>
