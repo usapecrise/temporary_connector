@@ -227,10 +227,21 @@ def update_submission(submission_id, fields):
 
     data = {}
 
-    for field_name, value in fields.items():
-        data[
-            f"submission[{field_name}]"
-        ] = value
+    for question_id, value in fields.items():
+
+        # Compound fields such as Name
+        if isinstance(value, dict):
+            for subfield, subvalue in value.items():
+                data[
+                    f"submission[{question_id}]"
+                    f"[{subfield}]"
+                ] = subvalue
+
+        # Normal fields
+        else:
+            data[
+                f"submission[{question_id}]"
+            ] = value
 
     response = requests.post(
         url,
@@ -242,4 +253,3 @@ def update_submission(submission_id, fields):
     response.raise_for_status()
 
     return response.json()
-
