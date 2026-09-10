@@ -38,7 +38,10 @@ def api_registrants():
         "Authorization",
         ""
     ).strip()
-
+    
+    if auth_header.lower().startswith("bearer "):
+        auth_header = auth_header[7:].strip()
+    
     if auth_header != CONNECTOR_TOKEN:
         return jsonify({
             "error": "Unauthorized"
