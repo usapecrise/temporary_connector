@@ -84,6 +84,7 @@ def get_registrations(form_id):
             "organization": "",
             "economy": "",
             "job_title": "",
+            "sex": "",
         }
 
         for answer in answers.values():
@@ -184,6 +185,12 @@ def get_registrations(form_id):
                     value or ""
                 ).strip()
 
+
+            elif field == "sex":
+                person["sex"] = str(
+                    value or ""
+                ).strip()
+                        
             # -------------------------
             # Job Title
             # -------------------------
